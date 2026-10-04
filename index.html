@@ -203,7 +203,7 @@ function li(p){const st=stOf(p.id);return `<li><button type="button" data-id="${
 function bindList(){panel.querySelectorAll('button[data-id]').forEach(b=>b.onclick=()=>select(b.dataset.id))}
 function showList(){const q=document.getElementById('q').value.trim().toUpperCase();let pts=visible();if(q)pts=DATA.pts.filter(p=>p.id.toUpperCase().includes(q)||p.name.toUpperCase().includes(q));
  const grp={};pts.forEach(p=>(grp[mode==='sys'?SYSN[p.sys]:p.amb]=grp[mode==='sys'?SYSN[p.sys]:p.amb]||[]).push(p));
- let h=`<p class="intro">Toque em um ponto na planta ou na lista. Marque <b>Feito</b> quando o eletroduto estiver passado, com guia e etiqueta.</p><div class="prow"><button class="btn2 ${mode==='list'?'on':''}" data-m="list">Por ambiente</button><button class="btn2 ${mode==='sys'?'on':''}" data-m="sys">Por sistema</button></div><ul class="plist">`;
+ let h=`<p class="intro">Toque em um ponto na planta ou na lista. Marque <b>Feito</b> quando o cabo estiver passado, com sobra e etiqueta nas duas pontas.</p><div class="prow"><button class="btn2 ${mode==='list'?'on':''}" data-m="list">Por ambiente</button><button class="btn2 ${mode==='sys'?'on':''}" data-m="sys">Por sistema</button></div><ul class="plist">`;
  for(const g in grp){const d=grp[g].filter(p=>stOf(p.id)==='done').length;h+=`<li class="g"><span>${g}</span><span>${d}/${grp[g].length}</span></li>`+grp[g].map(li).join('')}
  h+='</ul>';if(!pts.length)h=`<p class="intro">Nenhum ponto com esses filtros.</p>`;panel.innerHTML=h;bindList();panel.querySelectorAll('.btn2').forEach(b=>b.onclick=()=>{mode=b.dataset.m;showList()});}
 function clear(){sel=null;svg.classList.remove('has-sel');svg.querySelectorAll('.sel').forEach(e=>e.classList.remove('sel'));showList();if(window.innerWidth<900)closeSheet();}
